@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id" class="overflow-x-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Undangan Pernikahan Ria & Jamal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --maroon: #800000;
+            --gold: #d4af37;
+            --bright-gold: #ffdf00; 
+            --black: #0a0a0a;
+            --cream: #f9f3e6;
+            --glass-bg: rgba(0, 0, 0, 0.4);
+            --glass-border: rgba(212, 175, 55, 0.3);
+            /* Updated Background Image with Direct Link from your Drive */
+            --bg-image: url('https://lh3.googleusercontent.com/d/16IeUXfnRcATa0S9Y1Wc16hQGELsD9czY');
+        }
+        
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+            position: relative;
+            background-color: var(--black);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        .snap-container {
+            height: 100dvh;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        body.locked .snap-container {
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        section, footer {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            min-height: 100dvh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-accent { font-family: 'Cinzel Decorative', serif; }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), var(--bg-image);
+            background-size: cover;
+            background-position: center;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 6px solid var(--gold);
+        }
+
+        .hero-glass-box {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 3.5rem 2rem;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            z-index: 20;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0,0,0,1);
+        }
+
+        .hero-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 12vw, 4rem);
+            line-height: 1.2;
+            display: block;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .hero-ampersand {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: clamp(1.2rem, 6vw, 1.8rem);
+            margin: 0.5rem 0;
+            display: block;
+            color: var(--gold);
+            opacity: 0.9;
+        }
+
+        .date-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .date-line {
+            height: 1px;
+            width: 30px;
+            background: var(--gold);
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            max-width: 100%;
+            backdrop-filter: blur(10px);
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        /* --- ANIMASI KHUSUS HALAMAN PERTAMA (HERO) --- */
+        #hero .reveal {
+            transition: all 3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        #hero p.uppercase { transition-delay: 0.2s !important; }
+        #hero .hero-name:first-child { transition-delay: 0.8s !important; }
+        #hero .hero-ampersand { transition-delay: 1.4s !important; }
+        #hero .hero-name:last-child { transition-delay: 2.0s !important; }
+        #hero .date-container, #hero .mt-8 { transition-delay: 2.8s !important; }
+
+        /* --- ANIMATION CORE --- */
+        .reveal {
+            opacity: 0;
+            transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        
+        .reveal-up { transform: translateY(50px); }
+        .reveal-down { transform: translateY(-50px); }
+        .reveal-zoom { transform: scale(0.85); }
+        .reveal-left { transform: translateX(-50px); }
+        .reveal-right { transform: translateX(50px); }
+
+        .reveal.active { 
+            opacity: 1; 
+            transform: translate(0, 0) scale(1); 
+        }
+
+        .reveal:not(.active) {
+            transition: all 1.5s ease-in-out;
+        }
+
+        .btn-makassar {
+            background-color: rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            color: var(--gold);
+            padding: 14px 32px;
+            border: 1px solid var(--gold);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+        }
+
+        .btn-makassar:hover {
+            background-color: var(--gold);
+            color: black;
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle linear infinite;
+            opacity: 0;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.3); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        #global-star-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .music-btn {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .name-wrapper {
+            border-top: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            padding: 12px 10px;
+            display: block;
+            margin-bottom: 0.5rem;
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+        }
+
+        .family-name-border {
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            padding: 15px 20px;
+            display: block;
+            width: 100%;
+            max-width: 400px; 
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 4px;
+        }
+
+        .separator-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+            margin: 25px auto 10px;
+        }
+
+        .ampersand-divider {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 3rem;
+            color: var(--gold);
+            margin: 1rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+        }
+    </style>
+</head>
+<body class="antialiased locked">
+
+<!-- AUDIO SECTION -->
+<audio id="bgMusic" loop preload="auto">
+    <source src="Maher Zain - For The Rest Of My Life Vocals Only (Official Music Video) (mp3cut.net).mp3" type="audio/mpeg">
+</audio>
+
+<div id="musicControl" class="fixed bottom-6 right-6 z-50 hidden">
+    <button onclick="toggleMusic()" class="music-btn">
+        <svg id="musicIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path id="musicPath" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+    </button>
+</div>
+
+<div id="global-star-container"></div>
+
+<div class="snap-container" id="mainSnap">
+    
+    <!-- Halaman 1: Hero -->
+    <section id="hero" class="hero-section px-4">
+        <div class="hero-glass-box text-center reveal reveal-zoom">
+            <div id="hero-stars" class="absolute inset-0 pointer-events-none z-[-1]"></div>
+            <p class="text-[#d4af37] tracking-[0.4em] uppercase text-[10px] mb-4 opacity-90 reveal reveal-down"> THE WEDDING OF </p>
+            <div class="mb-6">
+                <span class="hero-name reveal reveal-left">RIA</span>
+                <span class="hero-ampersand reveal reveal-zoom">dan</span>
+                <span class="hero-name reveal reveal-right">JAMAL</span>
+            </div>
+            <div class="date-container reveal reveal-up">
+                <div class="date-line"></div>
+                <p class="font-serif text-[12px] tracking-[0.2em] text-white">05 . 04 . 2026</p>
+                <div class="date-line"></div>
+            </div>
+            <div class="mt-8 reveal reveal-up">
+                <button id="btnBuka" class="btn-makassar">Buka Undangan</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman 2: Intro -->
+    <section id="intro" class="pt-2 pb-6 px-4 text-center"> 
+        <div class="p-2 reveal reveal-zoom mt-0"> 
+            
+            <div class="reveal reveal-down mb-4"> 
+                <p class="font-serif italic text-sm mb-3 text-gray-300">Bismillahirrahmanirrahim</p>
+                <h2 class="text-[#d4af37] font-bold tracking-[0.1em] text-[11px] uppercase leading-relaxed">
+                    Assalamu’alaikum Warahmatullahi Wabarakatuh
+                </h2>
+            </div>
+            
+            <div class="mb-6 py-0"> 
+                <p class="font-serif text-gray-100 italic text-[14px] leading-relaxed reveal reveal-up">
+                    "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih<br>dan sayang."
+                </p>
+                <p class="mt-2 font-bold text-[#d4af37] text-[10px] tracking-widest reveal reveal-up">— QS. AR-RUM: 21 —</p>
+            </div>
+
+            <p class="text-gray-200 font-medium text-[13px] leading-relaxed reveal reveal-up">
+                Dengan memohon rahmat dan ridha Allah Subhanahu wa Ta'ala, kami mengundang Bapak/Ibu/Saudara(i) untuk menghadiri acara pernikahan putra-putri kami:
+            </p>
+        </div>
+    </section>
+
+    <!-- Halaman 3: Mempelai -->
+    <section id="mempelai" class="px-6 text-center border-y border-[#d4af37]/30" style="justify-content: flex-start;">
+        <div class="space-y-6 py-4 mt-20 md:mt-32 w-full"> 
+            <div class="reveal reveal-left">
+                <div class="name-wrapper mb-1"> 
+                    <h3 class="font-accent text-[22px] font-bold text-[#d4af37]">Lady Octaria, S.IP</h3> 
+                </div>
+                <p class="text-[9px] text-[#fff] font-bold italic mb-3 tracking-[0.3em]">RIA</p>
+                <div class="text-[11px] text-gray-300">
+                    <p>Anak kedua dari</p>
+                    <p class="font-bold text-white text-[13px] mt-1">Bapak Samsu Alang & Ibu Kamariah</p>
+                </div>
+            </div>
+            
+            <div class="ampersand-divider reveal reveal-zoom !my-4" style="font-size: 1.8rem;"> &
+            </div>
+            
+            <div class="reveal reveal-right">
+                <div class="name-wrapper mb-1"> 
+                    <h3 class="font-accent text-[22px] font-bold text-[#d4af37]">Jamaluddin</h3> 
+                </div>                
+                <p class="text-[9px] text-[#fff] font-bold italic mb-1 tracking-[0.3em]">JAMAL</p>
+                <div class="text-[11px] text-gray-300">
+                    <p>Anak kedelapan dari</p>
+                    <p class="font-bold text-white text-[13px] mt-1">Bapak Palla & Ibu Saodahi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman 4: Acara -->
+    <section id="acara" class="pt-0 pb-4 px-4"> 
+    <div class="text-center mt-0 md:-mt-4"> 
+        
+        <div class="grid grid-cols-1 gap-4 max-w-xs mx-auto"> 
+            
+            <div class="card p-5 reveal reveal-left"> 
+                <h4 class="font-accent text-lg text-[#d4af37] border-b border-[#d4af37]/30 pb-2 mb-3 uppercase">Akad Nikah</h4>
+                <div class="space-y-1 text-sm"> 
+                    <p class="font-bold">Senin, 30 Maret 2026</p>
+                    <p class="text-[#d4af37] font-semibold">Pukul 10.00 Wita</p>
+                    <div class="h-[1px] bg-[#d4af37]/20 my-2"></div> 
+                    <p class="text-[12px] leading-relaxed text-gray-300 text-center">Lorong 8, Dusun Wonodadi,<br>Desa Sumber Makmur (Unit 1),<br>Kec. Kalaena, Luwu Timur</p>
+                </div>
+            </div>
+
+            <div class="card p-5 reveal reveal-right">
+                <h4 class="font-accent text-lg text-[#d4af37] border-b border-[#d4af37]/30 pb-2 mb-3 uppercase">Resepsi</h4>
+                <div class="space-y-1 text-sm">
+                    <p class="font-bold">Senin, 30 Maret 2026</p>
+                    <p class="text-[#d4af37] font-semibold">Siang: Pukul 12.00 - 17.00 Wita<br>Malam: Pukul 18.30 Wita - Selesai</p>
+                    <div class="h-[1px] bg-[#d4af37]/20 my-2"></div>
+                    <p class="text-[12px] leading-relaxed text-gray-300 text-center">Lorong 8, Dusun Wonodadi,<br>Desa Sumber Makmur (Unit 1),<br>Kec. Kalaena, Luwu Timur</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+    <!-- Halaman 5: Hormat Kami -->
+    <section id="keluarga" class="px-4 text-center" style="justify-content: flex-start;">
+    <div class="max-w-2xl mx-auto p-2 mt-12 md:mt-24 w-full">
+        <div class="reveal reveal-up mb-10">
+            <p class="font-serif italic text-[13px] leading-relaxed text-gray-100 mb-4 font-medium">
+                Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara(i) berkenan hadir dan memberikan do’a restu kepada<br>kedua mempelai.
+            </p>
+            <p class="font-bold text-[#d4af37] uppercase tracking-widest text-[11px]">Wassalamu’alaikum Warahmatullahi Wabarakatuh</p>
+        </div>
+        
+        <div class="reveal reveal-up">
+            <h3 class="font-serif text-[10px] mb-4 tracking-[0.3em] text-[#d4af37]/80 uppercase font-bold">Hormat Kami Yang Mengundang</h3>
+            <div class="space-y-4">
+                
+                <div class="reveal reveal-left">
+                    <div class="separator-line !mt-2 !mb-2"></div>
+                    <div class="family-name-border max-w-full mx-auto p-2"> 
+                        <p class="font-serif text-md font-bold text-[#d4af37]">Kel. Bapak Samsu Alang (Pak Ari)<br>& Ibu Kamariah (Mak Ari)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Halaman 6: Turut Mengundang -->
+    <section id="turut-mengundang" class="pt-4 pb-8 px-6 text-center">
+    <div class="max-w-xl mx-auto py-4">
+        
+        <div class="reveal reveal-down mb-6">
+            <h4 class="font-accent text-xl text-[#d4af37] tracking-widest uppercase">Turut Mengundang</h4>
+            <div class="h-[1px] w-20 bg-[#d4af37] mx-auto mt-2"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-12 text-left px-4 reveal reveal-up">
+            <ul class="space-y-2 font-medium text-[12px] text-gray-200">
+                <li class="flex items-start gap-2">
+                    <span class="text-[#d4af37]">✦</span>
+                    <div>
+                        <span>Turatno</span>
+                        <p class="text-[9px] text-[#d4af37]/70 italic leading-tight">(Kepala Desa Sumber Makmur)</p>
+                    </div>
+                </li>                
+                <li class="flex items-start gap-2">
+                    <span class="text-[#d4af37]">✦</span>
+                    <div>
+                        <span>Widayanto</span>
+                        <p class="text-[9px] text-[#d4af37]/70 italic leading-tight">(Kepala Desa Argomulyo)</p>
+                    </div>
+                </li>                
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Sugiarto</span></li>
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Jumadi</span></li>
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Tenri</span></li>
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Andi Anjas</span></li>
+            </ul>
+            <ul class="space-y-2 font-medium text-[12px] text-gray-200">
+                <li class="flex items-start gap-2">
+                    <span class="text-[#d4af37]">✦</span>
+                    <div>
+                        <span>Agus Dana Saputra</span>
+                        <p class="text-[9px] text-[#d4af37]/70 italic leading-tight">(Kepala Dusun Wonodadi)</p>
+                    </div>
+                </li>                
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Agit Hadi Santoso</span></li>
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Heru Winarno</span></li>
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Sungkono</span></li>
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Nawir</span></li>
+                <li class="flex items-start gap-2"><span class="text-[#d4af37]">✦</span><span>Akib</span></li>
+            </ul>
+        </div>
+
+        <div class="mt-6 reveal reveal-up border-t border-[#d4af37]/20 pt-4">
+            <p class="font-serif italic text-[11px] text-gray-400 mb-0">Salam Hormat Kami,</p>
+            <p class="font-accent text-md text-white tracking-[0.4em] uppercase">Kedua Mempelai</p>
+        </div>
+    </div>
+</section>
+
+    <!-- Halaman Footer -->
+    <footer class="py-10 text-white text-center">
+        <div class="flex flex-col items-center px-6 h-full justify-center">
+            <div class="w-40 h-40 mb-0 reveal reveal-zoom">
+                <img src="https://lh3.googleusercontent.com/d/10him4crwdN3efFbjkvsphTRmxGL_lxTB" alt="Logo Muflih Print" class="w-full h-full object-contain brightness-125 drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]" onerror="this.src='https://via.placeholder.com/150/000000/d4af37?text=Muflih+Print'">
+            </div>
+            
+            <span class="font-accent text-[#d4af37] text-2xl mb-1 -mt-4 reveal reveal-up">Muflih Print</span>
+           
+            <div class="reveal reveal-up mt-4 mb-3 bg-[#d4af37]/10 border border-[#d4af37]/30 rounded-lg px-4 py-3 backdrop-blur-sm shadow-[0_0_20px_rgba(212,175,55,0.1)] max-w-[280px] mx-auto">
+                <p class="text-[#d4af37] text-[11px] font-bold uppercase tracking-widest leading-tight">
+                    CETAK UNDANGAN IMPIANMU
+                </p>
+                <p class="text-[11px] text-gray-300 mt-2 italic leading-relaxed">
+                    "Pesan lebih awal untuk hasil maksimal & dapatkan promonya hari ini!"
+                </p>
+            </div>
+
+            <a href="https://wa.link/231dzo" target="_blank" class="reveal reveal-up border border-[#d4af37]/40 rounded-full px-8 py-3 flex flex-col items-center hover:bg-[#d4af37]/20 transition-all duration-300">
+                <span class="text-[8px] uppercase tracking-widest opacity-60 mb-0.5">Hubungi Kami</span>
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5" style="fill: #d4af37;" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.6-2.8-23.6-8.7-45-27.7-16.6-14.8-27.8-33.1-31.1-38.6-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.6 5.6-9.3 1.9-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.5 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                    <span class="text-sm font-bold tracking-widest text-[#d4af37]">0815 7400 9621</span>
+                </div>
+            </a>
+
+            <p class="text-[9px] opacity-30 uppercase tracking-[0.3em] mt-6">© 2026 Muflih Print Makassar</p>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const audio = document.getElementById("bgMusic");
+    const musicControl = document.getElementById("musicControl");
+    const globalStarContainer = document.getElementById("global-star-container");
+    const heroStarContainer = document.getElementById("hero-stars");
+    const snapContainer = document.getElementById("mainSnap");
+
+    function createStar(container) {
+        const star = document.createElement("div");
+        star.className = "star";
+        const size = Math.random() * 2 + 1;
+        star.style.width = size + "px";
+        star.style.height = size + "px";
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        const duration = Math.random() * 3 + 2;
+        star.style.animationDuration = duration + "s";
+        star.style.animationDelay = Math.random() * 5 + "s";
+        container.appendChild(star);
+    }
+
+    window.onload = function() {
+        for(let i=0; i<30; i++) createStar(heroStarContainer);
+        for(let i=0; i<50; i++) createStar(globalStarContainer);
+        
+        // Pemicu awal untuk hero
+        const heroReveals = document.querySelectorAll('#hero .reveal');
+        heroReveals.forEach(el => el.classList.add('active'));
+if (audio) {
+        audio.preload = "auto"; // Memastikan instruksi preload aktif
+        audio.load(); 
+    }
+    };
+
+    document.getElementById('btnBuka').addEventListener('click', function() {
+        document.body.classList.remove('locked');
+        audio.play().then(() => {
+            musicControl.classList.remove('hidden');
+        }).catch(() => {
+            musicControl.classList.remove('hidden');
+        });
+        document.getElementById('intro').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    function toggleMusic() {
+        const path = document.getElementById("musicPath");
+        if (audio.paused) {
+            audio.play();
+            path.setAttribute("d", "M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z");
+        } else {
+            audio.pause();
+            path.setAttribute("d", "M6 19h4V5H6v14zm8-14v14h4V5h-4z");
+        }
+    }
+
+    /* --- LOGIKA ANIMASI KONSISTEN (SCROLL UP & DOWN) --- */
+    const options = { 
+        threshold: 0.15,
+        root: snapContainer
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+            } else {
+                entry.target.classList.remove("active");
+            }
+        });
+    }, options);
+
+    document.querySelectorAll(".reveal").forEach(el => {
+        revealObserver.observe(el);
+    });
+</script>
+</body>
+</html>

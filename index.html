@@ -51,6 +51,28 @@
             touch-action: none;
         }
 
+/* Animasi Muncul Bergantian */
+@keyframes fadeInUpCustom {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-name {
+    opacity: 0; /* Sembunyi di awal */
+    animation: fadeInUpCustom 1.2s ease forwards;
+}
+
+/* Delay masing-masing elemen */
+.delay-1 { animation-delay: 0.5s; }
+.delay-2 { animation-delay: 1.5s; }
+.delay-3 { animation-delay: 2.5s; }
+        
         section, footer {
             scroll-snap-align: start;
             scroll-snap-stop: always;
@@ -295,10 +317,10 @@
             <div id="hero-stars" class="absolute inset-0 pointer-events-none z-[-1]"></div>
             <p class="text-[#d4af37] tracking-[0.4em] uppercase text-[10px] mb-4 opacity-90 reveal reveal-down"> THE WEDDING OF </p>
             <div class="mb-6">
-                <span class="hero-name reveal reveal-left">RIA</span>
-                <span class="hero-ampersand reveal reveal-zoom">dan</span>
-                <span class="hero-name reveal reveal-right">JAMAL</span>
-            </div>
+    <span class="hero-name animate-name delay-1">RIA</span>
+    <span class="hero-ampersand animate-name delay-2">dan</span>
+    <span class="hero-name animate-name delay-3">JAMAL</span>
+</div>
             <div class="date-container reveal reveal-up">
                 <div class="date-line"></div>
                 <p class="font-serif text-[12px] tracking-[0.2em] text-white">05 . 04 . 2026</p>

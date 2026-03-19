@@ -269,6 +269,16 @@
             opacity: 0.9;
             filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
         }
+
+/* --- ANIMASI BERGANTIAN HALAMAN MEMPELAI --- */
+#mempelai .reveal-left { transition-delay: 0.3s; }   /* Nama Ria */
+#mempelai .ampersand-divider { transition-delay: 0.8s; } /* Simbol & */
+#mempelai .reveal-right { transition-delay: 1.3s; }  /* Nama Jamal */
+
+/* Opsional: Jika ingin teks detail di bawah nama juga menyusul */
+#mempelai .name-wrapper + p { transition-delay: 0.5s; } 
+#mempelai .text-gray-300 { transition-delay: 0.6s; }
+        
     </style>
 </head>
 <body class="antialiased locked">
@@ -336,34 +346,37 @@
     </section>
 
     <!-- Halaman 3: Mempelai -->
-    <section id="mempelai" class="px-6 text-center border-y border-[#d4af37]/30" style="justify-content: flex-start;">
-        <div class="space-y-6 py-4 mt-20 md:mt-32 w-full"> 
-            <div class="reveal reveal-left">
-                <div class="name-wrapper mb-1"> 
-                    <h3 class="font-accent text-[22px] font-bold text-[#d4af37]">Lady Octaria, S.IP</h3> 
-                </div>
-                <p class="text-[9px] text-[#fff] font-bold italic mb-3 tracking-[0.3em]">RIA</p>
-                <div class="text-[11px] text-gray-300">
-                    <p>Anak kedua dari</p>
-                    <p class="font-bold text-white text-[13px] mt-1">Bapak Samsu Alang & Ibu Kamariah</p>
-                </div>
+<section id="mempelai" class="px-6 text-center border-y border-[#d4af37]/30" style="justify-content: center;">
+    <div class="space-y-6 py-4 w-full max-w-lg mx-auto"> 
+        
+        <div class="reveal reveal-left">
+            <div class="name-wrapper mb-1"> 
+                <h3 class="font-accent text-[22px] font-bold text-[#d4af37]">Lady Octaria, S.IP</h3> 
             </div>
-            
-            <div class="ampersand-divider reveal reveal-zoom !my-4" style="font-size: 1.8rem;"> &
-            </div>
-            
-            <div class="reveal reveal-right">
-                <div class="name-wrapper mb-1"> 
-                    <h3 class="font-accent text-[22px] font-bold text-[#d4af37]">Jamaluddin</h3> 
-                </div>                
-                <p class="text-[9px] text-[#fff] font-bold italic mb-1 tracking-[0.3em]">JAMAL</p>
-                <div class="text-[11px] text-gray-300">
-                    <p>Anak kedelapan dari</p>
-                    <p class="font-bold text-white text-[13px] mt-1">Bapak Palla & Ibu Saodahi</p>
-                </div>
+            <p class="text-[9px] text-[#fff] font-bold italic mb-3 tracking-[0.3em]">RIA</p>
+            <div class="text-[11px] text-gray-300">
+                <p>Anak kedua dari</p>
+                <p class="font-bold text-white text-[13px] mt-1">Bapak Samsu Alang & Ibu Kamariah</p>
             </div>
         </div>
-    </section>
+        
+        <div class="ampersand-divider reveal reveal-zoom !my-4" style="font-size: 1.8rem;"> 
+            &
+        </div>
+        
+        <div class="reveal reveal-right">
+            <div class="name-wrapper mb-1"> 
+                <h3 class="font-accent text-[22px] font-bold text-[#d4af37]">Jamaluddin</h3> 
+            </div>                
+            <p class="text-[9px] text-[#fff] font-bold italic mb-1 tracking-[0.3em]">JAMAL</p>
+            <div class="text-[11px] text-gray-300">
+                <p>Anak kedelapan dari</p>
+                <p class="font-bold text-white text-[13px] mt-1">Bapak Palla & Ibu Saodahi</p>
+            </div>
+        </div>
+
+    </div>
+</section>
 
     <!-- Halaman 4: Acara -->
     <section id="acara" class="pt-0 pb-4 px-4"> 

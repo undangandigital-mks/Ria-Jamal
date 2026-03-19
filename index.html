@@ -270,15 +270,22 @@
             filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
         }
 
-/* --- ANIMASI BERGANTIAN HALAMAN MEMPELAI --- */
-#mempelai .reveal-left { transition-delay: 0.3s; }   /* Nama Ria */
-#mempelai .ampersand-divider { transition-delay: 0.8s; } /* Simbol & */
-#mempelai .reveal-right { transition-delay: 1.3s; }  /* Nama Jamal */
+        /* --- ANIMASI BERGANTIAN HALAMAN MEMPELAI --- */
+/* Gunakan id agar spesifisitas lebih tinggi */
+#mempelai .reveal-left { 
+    transition-delay: 0.2s !important; 
+} 
+#mempelai .ampersand-divider { 
+    transition-delay: 0.7s !important; 
+} 
+#mempelai .reveal-right { 
+    transition-delay: 1.2s !important; 
+}
 
-/* Opsional: Jika ingin teks detail di bawah nama juga menyusul */
-#mempelai .name-wrapper + p { transition-delay: 0.5s; } 
-#mempelai .text-gray-300 { transition-delay: 0.6s; }
-        
+/* Memastikan transisi halus saat keluar masuk layar */
+.reveal {
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
     </style>
 </head>
 <body class="antialiased locked">
@@ -361,8 +368,8 @@
         </div>
         
         <div class="ampersand-divider reveal reveal-zoom !my-4" style="font-size: 1.8rem;"> 
-            &
-        </div>
+    &
+</div>
         
         <div class="reveal reveal-right">
             <div class="name-wrapper mb-1"> 
@@ -574,8 +581,8 @@ if (audio) {
 
     /* --- LOGIKA ANIMASI KONSISTEN (SCROLL UP & DOWN) --- */
     const options = { 
-        threshold: 0.15,
-        root: snapContainer
+        threshold: 0.1,
+        root: null
     };
 
     const revealObserver = new IntersectionObserver((entries) => {

@@ -51,27 +51,6 @@
             touch-action: none;
         }
 
-/* Animasi Muncul Bergantian */
-@keyframes fadeInUpCustom {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.animate-name {
-    opacity: 0; /* Sembunyi di awal */
-    animation: fadeInUpCustom 1.2s ease forwards;
-}
-
-/* Delay masing-masing elemen */
-.delay-1 { animation-delay: 0.5s; }
-.delay-2 { animation-delay: 1.5s; }
-.delay-3 { animation-delay: 2.5s; }
         
         section, footer {
             scroll-snap-align: start;

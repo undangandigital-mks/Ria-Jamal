@@ -139,6 +139,30 @@
             border-radius: 4px;
         }
 
+    /* --- ANIMATION CORE (LEBIH LAMBAT & HALUS) --- */
+.reveal {
+    opacity: 0;
+    /* Durasi ditingkatkan ke 3.5s untuk kesan elegan */
+    transition: all 3.5s cubic-bezier(0.22, 1, 0.36, 1); 
+    will-change: transform, opacity;
+}
+
+.reveal-up { transform: translateY(100px); } /* Jarak gerak lebih jauh agar lebih terasa */
+.reveal-down { transform: translateY(-100px); }
+.reveal-zoom { transform: scale(0.8); }
+.reveal-left { transform: translateX(-100px); }
+.reveal-right { transform: translateX(100px); }
+
+.reveal.active { 
+    opacity: 1; 
+    transform: translate(0, 0) scale(1); 
+}
+
+    .reveal:not(.active) {
+    transition: none !important; /* Reset instan tanpa transisi */
+    opacity: 0;
+}
+
         /* --- ANIMASI KHUSUS HALAMAN PERTAMA (HERO) --- */
         #hero .reveal {
             transition: all 3s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -169,35 +193,10 @@
 #mempelai .reveal:not(.active),
 #acara .reveal:not(.active), 
 #keluarga .reveal:not(.active) {
-    transition: all 0.5s ease-in !important;
+    transition: none !important; /* Gunakan none agar tidak ada sisa gerakan saat pindah slide */
     transition-delay: 0s !important;
     opacity: 0;
 }
-
-
-
-       /* --- ANIMATION CORE (LEBIH LAMBAT & HALUS) --- */
-.reveal {
-    opacity: 0;
-    /* Durasi ditingkatkan ke 3.5s untuk kesan elegan */
-    transition: all 3.5s cubic-bezier(0.22, 1, 0.36, 1); 
-    will-change: transform, opacity;
-}
-
-.reveal-up { transform: translateY(100px); } /* Jarak gerak lebih jauh agar lebih terasa */
-.reveal-down { transform: translateY(-100px); }
-.reveal-zoom { transform: scale(0.8); }
-.reveal-left { transform: translateX(-100px); }
-.reveal-right { transform: translateX(100px); }
-
-.reveal.active { 
-    opacity: 1; 
-    transform: translate(0, 0) scale(1); 
-}
-
-        .reveal:not(.active) {
-            transition: all 1.5s ease-in-out;
-        }
 
         .btn-makassar {
             background-color: rgba(212, 175, 55, 0.15);
@@ -620,7 +619,7 @@
 
     /* --- LOGIKA ANIMASI KONSISTEN (SCROLL UP & DOWN) --- */
     const options = { 
-        threshold: 0.15,
+        threshold: 0.25,
         root: snapContainer
     };
 
